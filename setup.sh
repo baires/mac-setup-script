@@ -1,107 +1,42 @@
 #!/usr/bin/env bash
 
 brews=(
-  android-platform-tools
-  archey
   aws-shell
   chainsawbaby/formula/bash-snippets
-  cheat
   coreutils
-  dfc
   findutils
   fontconfig --universal
-  fpp
-  fzf
   git
   git-extras
+  hub
   git-lfs
-  gnuplot --with-qt
-  gnu-sed --with-default-names
   go
-  hh
   htop
   httpie
   iftop
   imagemagick --with-webp
-  lighttpd
-  lnav
-  mackup
-  macvim
-  mas
-  micro
-  moreutils
-  mtr
-  ncdu
-  nmap
   node
-  poppler
   postgresql
   pgcli
-  pv
   python
   python3
-  osquery
-  scala
-  sbt
-  stormssh
   thefuck
-  tmux
   tree
-  trash
   vim --with-override-system-vi
   wget --with-iri
 )
 
 casks=(
-  adobe-reader
-  airdroid
   atom
-  cakebrew
-  cleanmymac
-  commander-one
-  datagrip
-  docker
-  dropbox
   firefox
-  geekbench
   google-chrome
-  google-drive
-  github-desktop
-  hosts
   handbrake
-  intellij-idea
-  istat-menus
-  istat-server  
-  launchrocket
   licecap
   iterm2
-  betterzipql
-  qlcolorcode
-  qlmarkdown
-  qlstephen
-  quicklook-json
-  quicklook-csv
-  macdown
-  microsoft-office
-  plex-home-theater
-  plex-media-server
-  private-eye
-  satellite-eyes
-  sidekick
-  skype
   slack
-  sling
   spotify
-  steam
-  teleport
-  transmission
-  transmission-remote-gui
-  tunnelbear
-  visual-studio-code
   vlc
-  volumemixer
-  webstorm
-  xquartz
+  flux
 )
 
 pips=(
@@ -116,14 +51,9 @@ gems=(
 )
 
 npms=(
-  fenix-cli
-  gitjk
-  kill-tabs
   n
-  nuclide-installer
 )
 
-gpg_key='3E219504'
 git_configs=(
   "branch.autoSetupRebase always"
   "color.ui auto"
@@ -136,28 +66,54 @@ git_configs=(
   "rebase.autostash true"
   "rerere.autoUpdate true"
   "rerere.enabled true"
-  "user.name pathikrit"
-  "user.email pathikritbhowmick@msn.com"
-  "user.signingkey ${gpg_key}"
+  "user.name Alexis Sgarbossa"
+  "user.email alexis@sgarbossa.com.ar"
 )
 
 apms=(
+  aligner
+  aligner-scss
   atom-beautify
-  circle-ci
-  ensime
-  intellij-idea-keymap
-  language-scala
-  minimap
+  atom-jade
+  atom-sync
+  busy-signal
+  copy-path
+  csslint
+  dracula-syntax
+  dracula-theme
+  editorconfig
+  emmet
+  emmet-jsx-css-modules
+  escape-utils
+  file-icons
+  fonts
+  grayula-theme
+  highlight-selected
+  intentions
+  language-arduino
+  language-babel
+  language-docker
+  language-haml
+  linter
+  linter-eslint
+  linter-sass-lint
+  linter-ui-default
+  mark
+  maybs-quit
+  merge-conflicts
+  nord-atom-syntax
+  nord-atom-ui
+  pigments
+  prettier-atom
+  project-plus
+  seti-ui
+  sort-lines
+  sync-settings
+  trailing-spaces
+  unity-ui
+  seti-syntax
 )
 
-vscode=(
-  donjayamanne.python
-  dragos.scala-lsp
-  lukehoban.Go
-  ms-vscode.cpptools
-  rebornix.Ruby
-  redhat.java
-)
 
 fonts=(
   font-source-code-pro
@@ -211,9 +167,6 @@ rvm use ${ruby_version} --default
 ruby -v
 sudo gem update --system
 
-prompt "Install Java"
-brew cask install java
-
 prompt "Install packages"
 brew info ${brews[@]}
 install 'brew install' ${brews[@]}
@@ -228,25 +181,34 @@ install 'pip install --upgrade' ${pips[@]}
 install 'gem install' ${gems[@]}
 install 'npm install --global' ${npms[@]}
 install 'apm install' ${apms[@]}
-install 'code --install-extension' ${vscode[@]}
 brew tap caskroom/fonts
 install 'brew cask install' ${fonts[@]}
 
-prompt "Upgrade bash"
-brew install bash
-sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
-mv ~/.bash_profile ~/.bash_profile_backup
-mv ~/.bashrc ~/.bashrc_backup
-mv ~/.gitconfig ~/.gitconfig_backup
-cd; curl -#L https://github.com/barryclark/bashstrap/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,screenshot.png}
-#source ~/.bash_profile
+prompt "Install Yarnpkg"
+curl -o- -L https://yarnpkg.com/install.sh | bash
+
+prompt "Install ohmyzsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+prompt "Install iterm2 shell integration"
+curl -L https://iterm2.com/misc/install_shell_integration_and_utilities.sh | bash
+ln -s .zshrc ~/.zshrc
+source ~/.zshrc
+
+# prompt "Upgrade bash"
+# brew install bash
+# sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
+# mv ~/.bash_profile ~/.bash_profile_backup
+# mv ~/.bashrc ~/.bashrc_backup
+# mv ~/.gitconfig ~/.gitconfig_backup
+# cd; curl -#L https://github.com/barryclark/bashstrap/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,screenshot.png}
+# #source ~/.bash_profile
 
 prompt "Set git defaults"
 for config in "${git_configs[@]}"
 do
   git config --global ${config}
 done
-gpg --keyserver hkp://pgp.mit.edu --recv ${gpg_key}
 
 prompt "Install mac CLI [NOTE: Say NO to bash-completions since we have fzf]!"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"
@@ -259,5 +221,4 @@ prompt "Cleanup"
 brew cleanup
 brew cask cleanup
 
-read -p "Run `mackup restore` after DropBox has done syncing ..."
 echo "Done!"
