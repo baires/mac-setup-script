@@ -5,6 +5,7 @@ brews=(
   chainsawbaby/formula/bash-snippets
   coreutils
   findutils
+  diff-so-fancy
   fontconfig --universal
   git
   git-extras
