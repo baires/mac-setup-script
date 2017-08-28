@@ -217,6 +217,9 @@ prompt "Update packages"
 pip3 install --upgrade pip setuptools wheel
 mac update
 
+prompt "Take ownership"
+sudo chown -R $USER /usr/local
+
 prompt "Cleanup"
 brew cleanup
 brew cask cleanup
