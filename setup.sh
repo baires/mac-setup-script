@@ -23,7 +23,7 @@ brews=(
   thefuck
   tree
   vim --with-override-system-vi
-  wget --with-iri
+  wget
 )
 
 casks=(
