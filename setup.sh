@@ -70,7 +70,6 @@ git_configs=(
   "rerere.enabled true"
   "user.name Alexis Sgarbossa"
   "user.email alexis@sgarbossa.com.ar"
-  "core.pager "diff-so-fancy | less --tabs=4 -RFX"
 )
 
 fonts=(
