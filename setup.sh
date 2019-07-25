@@ -28,7 +28,7 @@ brews=(
 )
 
 casks=(
-  atom
+  visual-studio-code
   firefox
   google-chrome
   handbrake
@@ -53,6 +53,7 @@ gems=(
 
 npms=(
   n
+  now
 )
 
 git_configs=(
@@ -71,51 +72,6 @@ git_configs=(
   "user.email alexis@sgarbossa.com.ar"
   "core.pager "diff-so-fancy | less --tabs=4 -RFX"
 )
-
-apms=(
-  aligner
-  aligner-scss
-  atom-beautify
-  atom-jade
-  atom-sync
-  busy-signal
-  copy-path
-  csslint
-  dracula-syntax
-  dracula-theme
-  editorconfig
-  emmet
-  emmet-jsx-css-modules
-  escape-utils
-  file-icons
-  fonts
-  grayula-theme
-  highlight-selected
-  intentions
-  language-arduino
-  language-babel
-  language-docker
-  language-haml
-  linter
-  linter-eslint
-  linter-sass-lint
-  linter-ui-default
-  mark
-  maybs-quit
-  merge-conflicts
-  nord-atom-syntax
-  nord-atom-ui
-  pigments
-  prettier-atom
-  project-plus
-  seti-ui
-  sort-lines
-  sync-settings
-  trailing-spaces
-  unity-ui
-  seti-syntax
-)
-
 
 fonts=(
   font-source-code-pro
@@ -182,7 +138,6 @@ prompt "Installing secondary packages"
 install 'pip install --upgrade' ${pips[@]}
 install 'gem install' ${gems[@]}
 install 'npm install --global' ${npms[@]}
-install 'apm install' ${apms[@]}
 brew tap caskroom/fonts
 install 'brew cask install' ${fonts[@]}
 
